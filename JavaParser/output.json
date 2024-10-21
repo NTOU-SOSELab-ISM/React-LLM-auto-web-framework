@@ -1,7 +1,7 @@
 {
   "src/NewTodoForm.jsx" : [ ],
   "src/TodoItem.jsx" : [ ],
-  "src/App.jsx" : [ "src/NewTodoForm.jsx", "src/TodoList.jsx" ],
+  "src/App.jsx" : [ "src/NewTodoForm.jsx", "src/styles.css", "src/TodoList.jsx" ],
   "index.html" : [ ],
   "vite.config.js" : [ ],
   "src/styles.css" : [ ],

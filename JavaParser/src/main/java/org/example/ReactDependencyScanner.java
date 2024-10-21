@@ -39,6 +39,7 @@ public class ReactDependencyScanner {
         for (File file : files) {
             if (isSupported(file)) {
                 String componentName = getRelativePath(file);
+                System.out.println("componentName: " + componentName);
                 Set<String> dependencies = parseDependencies(file);
                 for (String dep : dependencies) {
                     // 轉換相對路徑為元件名稱
@@ -90,10 +91,17 @@ public class ReactDependencyScanner {
         String content = new String(Files.readAllBytes(file.toPath()));
 
         // 正則表達式匹配 import 語句
-        Pattern importPattern = Pattern.compile("import\\s+.*?\\s+from\\s+['\"](.*?)['\"];?");
+        // 匹配兩種形式：
+        // 1. import ... from '...';
+        // 2. import '...';
+        Pattern importPattern = Pattern.compile(
+                "import\\s+(?:[^'\";]+?\\s+from\\s+)?['\"](.*?)['\"];?",
+                Pattern.MULTILINE
+        );
         Matcher matcher = importPattern.matcher(content);
         while (matcher.find()) {
             String dep = matcher.group(1);
+            System.out.println("dep: " + dep);
             dependencies.add(dep);
         }
 
@@ -102,6 +110,7 @@ public class ReactDependencyScanner {
         matcher = requirePattern.matcher(content);
         while (matcher.find()) {
             String dep = matcher.group(1);
+            System.out.println("dep: " + dep);
             dependencies.add(dep);
         }
 
@@ -113,16 +122,25 @@ public class ReactDependencyScanner {
         if (dep.startsWith(".")) {  // 使用 String 而非 char
             // 相對路徑
             File depFile = new File(currentDir, dep);
-            for (String ext : SUPPORTED_EXTENSIONS) {
-                File fileWithExt = new File(depFile.getPath() + ext);
-                if (fileWithExt.exists()) {
-                    return getRelativePath(fileWithExt);
+
+            // 檢查 dep 是否已包含副檔名
+            if (hasExtension(dep)) {
+                if (depFile.exists()) {
+                    return getRelativePath(depFile);
                 }
-            }
-            // 如果沒有副檔名，假設是目錄並尋找 index 檔案
-            File indexFile = new File(depFile, "index.js");
-            if (indexFile.exists()) {
-                return getRelativePath(indexFile);
+            } else {
+                // 嘗試添加支援的副檔名
+                for (String ext : SUPPORTED_EXTENSIONS) {
+                    File fileWithExt = new File(depFile.getPath() + ext);
+                    if (fileWithExt.exists()) {
+                        return getRelativePath(fileWithExt);
+                    }
+                }
+                // 如果沒有副檔名，假設是目錄並尋找 index 檔案
+                File indexFile = new File(depFile, "index.js");
+                if (indexFile.exists()) {
+                    return getRelativePath(indexFile);
+                }
             }
         }
         // 其他情況（如 node_modules），可以根據需求處理
@@ -130,42 +148,10 @@ public class ReactDependencyScanner {
         return null;
     }
 
-    // 生成 DOT 格式的有向圖描述檔
-    public void generateDotFile(String outputPath) throws IOException {
-        File outFile = new File(outputPath);
-
-        // 檢查父目錄是否存在，如果不存在則嘗試創建
-        File parentDir = outFile.getParentFile();
-        if (parentDir != null && !parentDir.exists()) {
-            boolean dirsCreated = parentDir.mkdirs();
-            if (!dirsCreated) {
-                throw new IOException("無法創建目錄：" + parentDir.getAbsolutePath());
-            }
-        }
-
-        // 檢查是否為有效的文件路徑
-        if (outFile.isDirectory()) {
-            throw new IOException("輸出路徑是目錄，不是文件：" + outputPath);
-        }
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outFile));
-        writer.write("digraph DependencyGraph {\n");
-
-        for (String component : dependencyMap.keySet()) {
-            String sanitizedComponent = sanitizeLabel(component);
-            writer.write("    \"" + sanitizedComponent + "\";\n");
-        }
-
-        for (Map.Entry<String, Set<String>> entry : dependencyMap.entrySet()) {
-            String from = sanitizeLabel(entry.getKey());
-            for (String to : entry.getValue()) {
-                String sanitizedTo = sanitizeLabel(to);
-                writer.write("    \"" + from + "\" -> \"" + sanitizedTo + "\";\n");
-            }
-        }
-
-        writer.write("}\n");
-        writer.close();
+    // 檢查路徑是否已包含副檔名
+    private boolean hasExtension(String path) {
+        String fileName = Paths.get(path).getFileName().toString();
+        return fileName.contains(".") && !fileName.startsWith(".");
     }
 
     // 將 dependencyMap 儲存為 JSON 檔案
