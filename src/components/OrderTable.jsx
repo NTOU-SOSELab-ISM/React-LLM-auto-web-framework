@@ -1,11 +1,12 @@
 import React from 'react';
 
-function OrderTable({ orderList, deleteSelectedOrders, totalCount, totalPrice, checkout }) {
+function OrderTable({ orderList, setOrderList, deleteSelectedOrders, totalCount, totalPrice, checkout }) {
+  
+  // 勾選框切換函數
   const toggleSelect = (index) => {
     const newOrderList = [...orderList];
     newOrderList[index].isSelected = !newOrderList[index].isSelected;
-    // 強制刷新狀態
-    setOrderList(newOrderList);
+    setOrderList(newOrderList);  // 使用 setOrderList 更新狀態
   };
 
   return (
@@ -26,15 +27,12 @@ function OrderTable({ orderList, deleteSelectedOrders, totalCount, totalPrice, c
         </thead>
         <tbody>
           {orderList.map((order, index) => (
-            <tr
-              key={index}
-              style={{ backgroundColor: index % 2 === 0 ? 'lightgrey' : 'white' }}
-            >
+            <tr key={index} style={{ backgroundColor: index % 2 === 0 ? 'lightgrey' : 'white' }}>
               <td>
                 <input
                   type="checkbox"
-                  checked={order.isSelected || false}
-                  onChange={() => toggleSelect(index)}
+                  checked={order.isSelected || false}  // 確保初始值為 false
+                  onChange={() => toggleSelect(index)}  // 切換勾選狀態
                 />
               </td>
               <td>{order.name}</td>
@@ -44,25 +42,17 @@ function OrderTable({ orderList, deleteSelectedOrders, totalCount, totalPrice, c
               <td>{order.amount}</td>
               <td>{order.temperature}</td>
               <td>{order.sweetness}</td>
-              <td>{order.person}</td>
+              <td>{order.person}</td>  {/* 顯示訂購人 */}
             </tr>
           ))}
         </tbody>
       </table>
       <div style={{ marginTop: '10px' }}>
-        <button
-          onClick={deleteSelectedOrders}
-          style={{ backgroundColor: 'blue', color: 'white', marginRight: '10px' }}
-        >
+        <button onClick={deleteSelectedOrders} style={{ backgroundColor: 'blue', color: 'white', marginRight: '10px' }}>
           刪除勾選
         </button>
-        <span>
-          總計 {totalCount} 份，共 {totalPrice} 元
-        </span>
-        <button
-          onClick={checkout}
-          style={{ backgroundColor: 'green', color: 'white', marginLeft: '10px' }}
-        >
+        <span>總計 {totalCount} 份，共 {totalPrice} 元</span>
+        <button onClick={checkout} style={{ backgroundColor: 'green', color: 'white', marginLeft: '10px' }}>
           結帳
         </button>
       </div>

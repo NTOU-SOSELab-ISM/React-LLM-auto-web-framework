@@ -34,12 +34,13 @@ function App() {
   };
 
   const checkout = () => {
-    alert(`訂單明細:\n${orderList.map(o => `${o.name} x${o.quantity} - ${o.amount}元`).join('\n')}\n總金額: ${totalPrice}元`);
+    alert(`訂單明細:\n${orderList.map(o => `${o.name} x${o.quantity} = ${o.amount}元`).join('\n')}\n總金額: ${totalPrice}元`);
     setOrderList([]);
     setTotalCount(0);
     setTotalPrice(0);
     setOrderPerson('');
   };
+  
 
   return (
     <div className="app">
