@@ -1,0 +1,8 @@
+{
+  "App": [react, NewTodoForm, styles, TodoList],
+  "TodoItem": [],
+  "NewTodoForm": [react],
+  "main": [App, client, react],
+  "vite.config": [plugin-react-swc, vite],
+  "TodoList": [TodoItem]
+}
