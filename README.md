@@ -1,2 +1,3 @@
-# React-LLM-auto-web-framework
-Auto generate React web by LLM 
+# NTOU-Takeout-Frontend
+
+Vite + React + TailwindCSS
