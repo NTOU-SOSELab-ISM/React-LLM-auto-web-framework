@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function OrderTable({ orderList, setOrderList, deleteSelectedOrders, totalCount, totalPrice, checkout }) {
-  
-  // 勾選框切換函數
+function OrderTable({ orderList, setOrderList, totalCount, totalPrice, checkout }) {
+  const [selectedOrders, setSelectedOrders] = useState(new Array(orderList.length).fill(false));
+
   const toggleSelect = (index) => {
-    const newOrderList = [...orderList];
-    newOrderList[index].isSelected = !newOrderList[index].isSelected;
-    setOrderList(newOrderList);  // 使用 setOrderList 更新狀態
+    const updatedSelectedOrders = [...selectedOrders];
+    updatedSelectedOrders[index] = !updatedSelectedOrders[index];
+    setSelectedOrders(updatedSelectedOrders);
+
+    const updatedOrderList = orderList.map((order, idx) => ({
+      ...order,
+      isSelected: updatedSelectedOrders[idx],
+    }));
+    setOrderList(updatedOrderList);
+  };
+
+  const deleteSelectedOrders = () => {
+    const updatedOrderList = orderList.filter(order => !order.isSelected);
+    setOrderList(updatedOrderList);
+    setSelectedOrders(new Array(updatedOrderList.length).fill(false));
   };
 
   return (
@@ -31,8 +43,8 @@ function OrderTable({ orderList, setOrderList, deleteSelectedOrders, totalCount,
               <td>
                 <input
                   type="checkbox"
-                  checked={order.isSelected || false}  // 確保初始值為 false
-                  onChange={() => toggleSelect(index)}  // 切換勾選狀態
+                  checked={selectedOrders[index] || false}
+                  onChange={() => toggleSelect(index)}
                 />
               </td>
               <td>{order.name}</td>
@@ -42,7 +54,7 @@ function OrderTable({ orderList, setOrderList, deleteSelectedOrders, totalCount,
               <td>{order.amount}</td>
               <td>{order.temperature}</td>
               <td>{order.sweetness}</td>
-              <td>{order.person}</td>  {/* 顯示訂購人 */}
+              <td>{order.person}</td>
             </tr>
           ))}
         </tbody>

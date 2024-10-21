@@ -1,32 +1,30 @@
-.app {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .selection-area {
-    margin-bottom: 20px;
-  }
-  
-  .order-list {
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th,
-  td {
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: center;
-  }
-  
-  button {
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
