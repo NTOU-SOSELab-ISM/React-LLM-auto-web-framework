@@ -170,7 +170,7 @@ public class ReactDependencyScanner {
 //        String projectRoot = args[0];
 //        String dotOutputPath = args[1];
 //        String jsonOutputPath = args[2];
-        String projectRoot = "../react-test-project";
+        String projectRoot = "../vite-project";
         String jsonOutputPath = "output.json";
 
         ReactDependencyScanner scanner = new ReactDependencyScanner(projectRoot);
