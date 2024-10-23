@@ -58,6 +58,9 @@ public class ReactDependencyScanner {
         File[] files = directory.listFiles();
         if(files != null){
             for (File file : files) {
+                if (file.isDirectory() && file.getName().equals("node_modules")) {
+                    continue;
+                }
                 if (file.isDirectory()) {
                     fileList.addAll(listAllFiles(file));
                 } else {
