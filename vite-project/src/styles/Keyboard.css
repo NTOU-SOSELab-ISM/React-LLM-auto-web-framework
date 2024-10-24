@@ -1,0 +1,54 @@
+/* 基本鍵盤樣式 */
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  
+  /* 單個鍵的樣式 */
+  .key {
+    background-color: #eee;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #000; /* 預設文字顏色為黑色 */
+  }
+  
+  /* 按下鍵時的樣式 */
+  .key.active {
+    background-color: #4caf50; /* 按下鍵後的背景顏色 */
+    color: white; /* 按下鍵後的文字顏色 */
+  }
+  
+  /* 亮色模式下的按鍵樣式 */
+  .key.light {
+    background-color: #eee;
+    color: #000;
+  }
+  
+  /* 暗色模式下的按鍵樣式 */
+  .key.dark {
+    background-color: #333;
+    color: #ddd;
+  }
+  
+  /* 按下鍵時暗色模式的樣式 */
+  .key.dark.active {
+    background-color: #66bb6a;
+    color: white;
+  }
+  
+  /* 添加hover效果 */
+  .key:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .key.dark:hover {
+    background-color: #555;
+  }
+  

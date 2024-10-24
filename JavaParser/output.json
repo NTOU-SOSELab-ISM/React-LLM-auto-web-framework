@@ -1,14 +1,15 @@
 {
-  "src/App.jsx" : [ "src/App.css", "src/components/OrderTable.jsx", "src/components/OrderList.jsx", "src/utils/csvLoader.js" ],
+  "src/App.jsx" : [ "src/pages/HomePage.jsx", "src/App.css" ],
+  "src/styles/Keyboard.css" : [ ],
+  "src/styles/TypingArea.css" : [ ],
+  "src/index.css" : [ ],
+  "src/main.jsx" : [ "src/App.jsx", "src/index.css" ],
+  "src/pages/HomePage.jsx" : [ "src/styles/HomePage.css", "src/components/TypingArea.jsx", "src/components/Keyboard.jsx" ],
+  "src/styles/HomePage.css" : [ ],
   "index.html" : [ ],
   "eslint.config.js" : [ ],
   "src/App.css" : [ ],
-  "src/components/OrderTable.jsx" : [ ],
-  "vite.config.js" : [ ],
-  "src/index.css" : [ ],
-  "src/styles/OrderTable.css" : [ ],
-  "src/components/OrderList.jsx" : [ ],
-  "src/styles/OrderList.css" : [ ],
-  "src/utils/csvLoader.js" : [ ],
-  "src/main.jsx" : [ "src/App.jsx", "src/index.css" ]
+  "src/components/TypingArea.jsx" : [ "src/styles/TypingArea.css" ],
+  "src/components/Keyboard.jsx" : [ "src/styles/Keyboard.css" ],
+  "vite.config.js" : [ ]
 }

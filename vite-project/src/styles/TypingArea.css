@@ -1,0 +1,84 @@
+.typing-area {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  /* 計時器與WPM的樣式 */
+  .timer, .wpm {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* 顯示要打的文本區域 */
+  .text-display {
+    font-size: 20px;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 亮色模式下的文本顯示樣式 */
+  .text-display.light {
+    color: #000; /* 預設文字顏色為黑色 */
+  }
+  
+  /* 暗色模式下的文本顯示樣式 */
+  .text-display.dark {
+    color: #d3d3d3; /* 預設文字顏色為淺灰色，適合深色背景 */
+  }
+  
+  /* 正確輸入的字元顏色 */
+  .correct {
+    color: #00ff00; /* 綠色，表示正確字元 */
+  }
+  
+  /* 錯誤輸入的字元顏色 */
+  .incorrect {
+    color: #ff4c4c; /* 紅色，表示錯誤字元 */
+  }
+  
+  /* 輸入框樣式 */
+  .text-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  /* 暗色模式下的輸入框樣式 */
+  .text-input.dark {
+    background-color: #444;
+    color: #fff;
+    border-color: #666;
+  }
+  
+  /* 結算畫面樣式 */
+  .result-screen {
+    margin-top: 20px;
+  }
+  
+  .result-screen h2 {
+    font-size: 24px;
+    color: #4caf50;
+  }
+  
+  .result-screen button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .result-screen button:hover {
+    background-color: #45a049;
+  }
+  
